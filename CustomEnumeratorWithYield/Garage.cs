@@ -22,9 +22,18 @@ namespace CustomEnumeratorWithYield
 
         public IEnumerator GetEnumerator()
         {
-            foreach (Car c in carArray)
-            {
-                yield return c;
+            // This will get thrown immediately
+            throw new Exception("This will get called");
+
+            return actualImplementation();
+
+            // This will not get thrown until MoveNext() is called
+            IEnumerator actualImplementation()
+            { 
+                foreach (Car c in carArray)
+                {
+                    yield return c;
+                }
             }
         }
     }
