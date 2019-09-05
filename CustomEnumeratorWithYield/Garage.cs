@@ -23,7 +23,6 @@ namespace CustomEnumeratorWithYield
         public IEnumerator GetEnumerator()
         {
             // This will get thrown immediately
-            throw new Exception("This will get called");
 
             return actualImplementation();
 
@@ -33,6 +32,31 @@ namespace CustomEnumeratorWithYield
                 foreach (Car c in carArray)
                 {
                     yield return c;
+                }
+            }
+        }
+
+        public IEnumerable GetTheCars(bool returnReversed)
+        {
+            return actualImplementation();
+
+            IEnumerable actualImplementation()
+            {
+                // Return the items in reverse.
+                if (returnReversed)
+                {
+                    for (int i = carArray.Length; i != 0; i--)
+                    {
+                        yield return carArray[i - 1];
+                    }
+                }
+                else
+                {
+                    // Return the items as placed in the array
+                    foreach (Car c in carArray)
+                    {
+                        yield return c;
+                    }
                 }
             }
         }
